@@ -1,0 +1,389 @@
+
+<style>
+.screen { display: none; }
+.screen.active { display: block; }
+.nav-btn { cursor: pointer; padding: 6px 14px; font-size: 13px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); transition: all 0.15s; }
+.nav-btn.active { background: #185FA5; color: #E6F1FB; border-color: #185FA5; }
+.nav-btn:hover:not(.active) { background: var(--color-background-secondary); }
+.sidebar-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; font-size: 13px; border-radius: var(--border-radius-md); cursor: pointer; color: var(--color-text-secondary); transition: background 0.15s; }
+.sidebar-item:hover { background: var(--color-background-secondary); }
+.sidebar-item.active { background: #E6F1FB; color: #0C447C; font-weight: 500; }
+.metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+.metric-label { font-size: 12px; color: var(--color-text-secondary); margin: 0 0 4px; }
+.metric-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin: 0; }
+.metric-sub { font-size: 11px; color: var(--color-text-success); margin: 4px 0 0; }
+.badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.badge-green { background: #EAF3DE; color: #27500A; }
+.badge-amber { background: #FAEEDA; color: #633806; }
+.badge-red { background: #FCEBEB; color: #791F1F; }
+.badge-blue { background: #E6F1FB; color: #0C447C; }
+.bar { height: 8px; border-radius: 4px; background: var(--color-background-secondary); overflow: hidden; margin: 4px 0; }
+.bar-fill { height: 100%; border-radius: 4px; }
+.row-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; }
+.row-item:last-child { border-bottom: none; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+.tag { font-size: 11px; padding: 3px 8px; border-radius: 20px; background: var(--color-background-secondary); color: var(--color-text-secondary); }
+.chat-bubble { padding: 10px 14px; border-radius: var(--border-radius-lg); font-size: 13px; line-height: 1.5; max-width: 85%; margin: 6px 0; }
+.chat-user { background: #E6F1FB; color: #042C53; align-self: flex-end; margin-left: auto; border-bottom-right-radius: 4px; }
+.chat-ai { background: var(--color-background-secondary); color: var(--color-text-primary); border-bottom-left-radius: 4px; }
+</style>
+
+<h2 class="sr-only">Antara muka sistem bersepadu pekerja sosial Malaysia — navigasi antara skrin dashboard, profil, kompetensi, CPD dan AI assistant</h2>
+
+<div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden;">
+
+  <div style="background: #042C53; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 28px; height: 28px; background: #185FA5; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+        <span style="color: #E6F1FB; font-size: 12px; font-weight: 500;">PS</span>
+      </div>
+      <span style="color: #B5D4F4; font-size: 14px; font-weight: 500;">SiKoPS Malaysia</span>
+      <span style="color: #378ADD; font-size: 11px;">Sistem Kompetensi Pekerja Sosial</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="color: #85B7EB; font-size: 12px;">Ahmad Rashid | ISM Admin</span>
+      <div style="width: 28px; height: 28px; border-radius: 50%; background: #185FA5; display: flex; align-items: center; justify-content: center;">
+        <span style="color: #E6F1FB; font-size: 11px; font-weight: 500;">AR</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 8px; padding: 10px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); flex-wrap: wrap;">
+    <button class="nav-btn active" onclick="showScreen('dashboard')">Dashboard</button>
+    <button class="nav-btn" onclick="showScreen('profil')">Profil Pekerja Sosial</button>
+    <button class="nav-btn" onclick="showScreen('kompetensi')">Penilaian Kompetensi</button>
+    <button class="nav-btn" onclick="showScreen('cpd')">Rekod CPD</button>
+    <button class="nav-btn" onclick="showScreen('ai')">AI Assistant</button>
+  </div>
+
+  <div style="display: flex; min-height: 520px;">
+
+    <div style="width: 180px; flex-shrink: 0; border-right: 0.5px solid var(--color-border-tertiary); padding: 12px 8px;">
+      <p style="font-size: 11px; color: var(--color-text-tertiary); padding: 0 8px; margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.05em;">Utama</p>
+      <div class="sidebar-item active" onclick="showScreen('dashboard')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+        Dashboard
+      </div>
+      <div class="sidebar-item" onclick="showScreen('profil')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Profil PS
+      </div>
+      <div class="sidebar-item" onclick="showScreen('kompetensi')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Kompetensi
+      </div>
+      <div class="sidebar-item" onclick="showScreen('cpd')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 8h6M5 5h6M5 11h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Rekod CPD
+      </div>
+      <div class="sidebar-item" onclick="showScreen('ai')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 2v-2H4a2 2 0 01-2-2V4z" stroke="currentColor" stroke-width="1.2"/></svg>
+        AI Assistant
+      </div>
+      <p style="font-size: 11px; color: var(--color-text-tertiary); padding: 0 8px; margin: 16px 0 6px; text-transform: uppercase; letter-spacing: 0.05em;">Laporan</p>
+      <div class="sidebar-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12V4l6-2 6 2v8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M8 14v-4" stroke="currentColor" stroke-width="1.2"/><path d="M5 8h6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Analitik
+      </div>
+      <div class="sidebar-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Audit Log
+      </div>
+    </div>
+
+    <div style="flex: 1; padding: 16px; overflow: hidden;">
+
+      <div id="screen-dashboard" class="screen active">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+          <div>
+            <p style="font-size: 16px; font-weight: 500; margin: 0; color: var(--color-text-primary);">Selamat datang, Ahmad Rashid</p>
+            <p style="font-size: 12px; color: var(--color-text-secondary); margin: 2px 0 0;">Ringkasan sistem pekerja sosial Malaysia</p>
+          </div>
+          <span class="badge badge-green">Sistem Aktif</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px;">
+          <div class="metric">
+            <p class="metric-label">Jumlah pekerja sosial</p>
+            <p class="metric-val">12,847</p>
+            <p class="metric-sub">+234 bulan ini</p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Berdaftar aktif</p>
+            <p class="metric-val">9,412</p>
+            <p class="metric-sub">73% daripada jumlah</p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">CPD lengkap tahun ini</p>
+            <p class="metric-val">6,238</p>
+            <p class="metric-sub">66% kadar pematuhan</p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Penilaian bulan ini</p>
+            <p class="metric-val">1,104</p>
+            <p class="metric-sub">+18% vs bulan lalu</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px;">
+          <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px;">
+            <p style="font-size: 13px; font-weight: 500; margin: 0 0 12px; color: var(--color-text-primary);">Taburan kompetensi mengikut domain</p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;"><span>Intervensi individu & keluarga</span><span>78%</span></div>
+                <div class="bar"><div class="bar-fill" style="width:78%; background:#185FA5;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;"><span>Kerja komuniti & kumpulan</span><span>65%</span></div>
+                <div class="bar"><div class="bar-fill" style="width:65%; background:#185FA5;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;"><span>Pengurusan kes</span><span>82%</span></div>
+                <div class="bar"><div class="bar-fill" style="width:82%; background:#185FA5;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;"><span>Etika & undang-undang</span><span>54%</span></div>
+                <div class="bar"><div class="bar-fill" style="width:54%; background:#E24B4A;"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px;"><span>Penyelidikan & amalan berasaskan bukti</span><span>47%</span></div>
+                <div class="bar"><div class="bar-fill" style="width:47%; background:#E24B4A;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px;">
+            <p style="font-size: 13px; font-weight: 500; margin: 0 0 12px; color: var(--color-text-primary);">Aktiviti terkini</p>
+            <div class="row-item">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="avatar" style="background: #E6F1FB; color: #0C447C;">SR</div>
+                <div><p style="font-size: 12px; margin: 0; font-weight: 500;">Siti Rahimah</p><p style="font-size: 11px; color: var(--color-text-secondary); margin: 0;">Selesai penilaian 360°</p></div>
+              </div>
+              <span class="tag">2j lalu</span>
+            </div>
+            <div class="row-item">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="avatar" style="background: #EAF3DE; color: #27500A;">MH</div>
+                <div><p style="font-size: 12px; margin: 0; font-weight: 500;">Mohd Hafiz</p><p style="font-size: 11px; color: var(--color-text-secondary); margin: 0;">Lengkap 10 jam CPD</p></div>
+              </div>
+              <span class="tag">5j lalu</span>
+            </div>
+            <div class="row-item">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="avatar" style="background: #FAEEDA; color: #633806;">PN</div>
+                <div><p style="font-size: 12px; margin: 0; font-weight: 500;">Priya Nair</p><p style="font-size: 11px; color: var(--color-text-secondary); margin: 0;">Daftar baharu — JKM Selangor</p></div>
+              </div>
+              <span class="tag">semalam</span>
+            </div>
+            <div class="row-item">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="avatar" style="background: #FBEAF0; color: #72243E;">AL</div>
+                <div><p style="font-size: 12px; margin: 0; font-weight: 500;">Ahmad Luqman</p><p style="font-size: 11px; color: var(--color-text-secondary); margin: 0;">CPD hampir tamat tempoh</p></div>
+              </div>
+              <span class="badge badge-amber">Amaran</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="screen-profil" class="screen">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+          <p style="font-size: 15px; font-weight: 500; margin: 0;">Profil pekerja sosial</p>
+          <button onclick="sendPrompt('Cadangkan medan data profiling pekerja sosial yang komprehensif untuk sistem ini')" style="font-size: 12px; padding: 6px 12px;" class="nav-btn">Cadang medan data ↗</button>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; width: 200px; flex-shrink: 0;">
+            <div class="avatar" style="background: #E6F1FB; color: #0C447C; width: 52px; height: 52px; font-size: 18px; margin: 0 auto 12px;">SR</div>
+            <p style="font-size: 14px; font-weight: 500; text-align: center; margin: 0;">Siti Rahimah bt Aziz</p>
+            <p style="font-size: 12px; color: var(--color-text-secondary); text-align: center; margin: 4px 0 12px;">PS-2021-04872</p>
+            <span class="badge badge-green" style="display: block; text-align: center; margin-bottom: 12px;">Aktif & Berdaftar</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); line-height: 1.8;">
+              <p style="margin: 0;">JKM Pulau Pinang</p>
+              <p style="margin: 0;">Sektor Awam</p>
+              <p style="margin: 0;">Ijazah Sarjana Muda</p>
+              <p style="margin: 0;">4 tahun pengalaman</p>
+            </div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px;">
+              <p style="font-size: 13px; font-weight: 500; margin: 0 0 10px;">Maklumat peribadi & profesional</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px;">
+                <div><p style="color: var(--color-text-secondary); margin: 0;">No. pendaftaran</p><p style="margin: 2px 0 0; font-weight: 500;">PS-2021-04872</p></div>
+                <div><p style="color: var(--color-text-secondary); margin: 0;">Tarikh daftar</p><p style="margin: 2px 0 0; font-weight: 500;">12 Mac 2021</p></div>
+                <div><p style="color: var(--color-text-secondary); margin: 0;">Agensi</p><p style="margin: 2px 0 0; font-weight: 500;">JKM Pulau Pinang</p></div>
+                <div><p style="color: var(--color-text-secondary); margin: 0;">Negeri</p><p style="margin: 2px 0 0; font-weight: 500;">Pulau Pinang</p></div>
+                <div><p style="color: var(--color-text-secondary); margin: 0;">Bidang khusus</p><p style="margin: 2px 0 0; font-weight: 500;">Kanak-kanak & keluarga</p></div>
+                <div><p style="color: var(--color-text-secondary); margin: 0;">Renewal seterusnya</p><p style="margin: 2px 0 0; font-weight: 500; color: var(--color-text-success);">12 Mac 2026</p></div>
+              </div>
+            </div>
+            <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px;">
+              <p style="font-size: 13px; font-weight: 500; margin: 0 0 10px;">Ringkasan kompetensi & CPD</p>
+              <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px;">
+                <div class="metric" style="text-align: center;">
+                  <p class="metric-label">Skor kompetensi</p>
+                  <p class="metric-val" style="color: #185FA5;">74%</p>
+                </div>
+                <div class="metric" style="text-align: center;">
+                  <p class="metric-label">Jam CPD terkumpul</p>
+                  <p class="metric-val" style="color: #3B6D11;">28</p>
+                </div>
+                <div class="metric" style="text-align: center;">
+                  <p class="metric-label">Penilaian 360°</p>
+                  <p class="metric-val">3</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="screen-kompetensi" class="screen">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+          <p style="font-size: 15px; font-weight: 500; margin: 0;">Penilaian kompetensi 360°</p>
+          <span class="badge badge-blue">Siti Rahimah bt Aziz</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-bottom: 14px;">
+          <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; text-align: center;">
+            <p style="font-size: 12px; color: var(--color-text-secondary); margin: 0 0 4px;">Self-assessment</p>
+            <p style="font-size: 26px; font-weight: 500; margin: 0; color: #185FA5;">76%</p>
+            <div class="bar" style="margin-top: 8px;"><div class="bar-fill" style="width:76%; background:#185FA5;"></div></div>
+          </div>
+          <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; text-align: center;">
+            <p style="font-size: 12px; color: var(--color-text-secondary); margin: 0 0 4px;">Penilaian penyelia</p>
+            <p style="font-size: 26px; font-weight: 500; margin: 0; color: #3B6D11;">80%</p>
+            <div class="bar" style="margin-top: 8px;"><div class="bar-fill" style="width:80%; background:#3B6D11;"></div></div>
+          </div>
+          <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; text-align: center;">
+            <p style="font-size: 12px; color: var(--color-text-secondary); margin: 0 0 4px;">Maklum balas klien</p>
+            <p style="font-size: 26px; font-weight: 500; margin: 0; color: #BA7517;">67%</p>
+            <div class="bar" style="margin-top: 8px;"><div class="bar-fill" style="width:67%; background:#BA7517;"></div></div>
+          </div>
+        </div>
+        <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; margin-bottom: 10px;">
+          <p style="font-size: 13px; font-weight: 500; margin: 0 0 12px;">Domain kompetensi — perbandingan 3 perspektif</p>
+          <div style="font-size: 12px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr; gap: 8px; color: var(--color-text-secondary); font-size: 11px; padding-bottom: 4px; border-bottom: 0.5px solid var(--color-border-tertiary);">
+              <span>Domain</span><span>Self</span><span>Penyelia</span><span>Klien</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr; gap: 8px; align-items: center;">
+              <span style="color: var(--color-text-secondary);">Intervensi</span>
+              <div class="bar"><div class="bar-fill" style="width:82%; background:#185FA5;"></div></div>
+              <div class="bar"><div class="bar-fill" style="width:88%; background:#3B6D11;"></div></div>
+              <div class="bar"><div class="bar-fill" style="width:74%; background:#BA7517;"></div></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr; gap: 8px; align-items: center;">
+              <span style="color: var(--color-text-secondary);">Pengurusan kes</span>
+              <div class="bar"><div class="bar-fill" style="width:78%; background:#185FA5;"></div></div>
+              <div class="bar"><div class="bar-fill" style="width:84%; background:#3B6D11;"></div></div>
+              <div class="bar"><div class="bar-fill" style="width:70%; background:#BA7517;"></div></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 160px 1fr 1fr 1fr; gap: 8px; align-items: center;">
+              <span style="color: var(--color-text-secondary);">Etika & undang</span>
+              <div class="bar"><div class="bar-fill" style="width:60%; background:#E24B4A;"></div></div>
+              <div class="bar"><div class="bar-fill" style="width:65%; background:#E24B4A;"></div></div>
+              <div class="bar"><div class="bar-fill" style="width:55%; background:#E24B4A;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div style="background: #FAEEDA; border: 0.5px solid #EF9F27; border-radius: var(--border-radius-md); padding: 10px 14px;">
+          <p style="font-size: 12px; font-weight: 500; color: #633806; margin: 0 0 4px;">Cadangan ANDAi — jurang dikenal pasti</p>
+          <p style="font-size: 12px; color: #854F0B; margin: 0;">Domain etika & undang-undang menunjukkan jurang konsisten merentas ketiga-tiga perspektif. Disyorkan: Kursus Etika Kerja Sosial (12 jam CPD) — sesi akan datang Julai 2026.</p>
+        </div>
+      </div>
+
+      <div id="screen-cpd" class="screen">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+          <p style="font-size: 15px; font-weight: 500; margin: 0;">Rekod CPD</p>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span style="font-size: 12px; color: var(--color-text-secondary);">28 / 40 jam</span>
+            <span class="badge badge-amber">Dalam proses</span>
+          </div>
+        </div>
+        <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px;"><span>Kemajuan CPD 2025/2026</span><span>28 daripada 40 jam</span></div>
+          <div class="bar" style="height: 12px;"><div class="bar-fill" style="width:70%; background:#185FA5;"></div></div>
+        </div>
+        <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px;">
+          <p style="font-size: 13px; font-weight: 500; margin: 0 0 10px;">Senarai latihan & aktiviti CPD</p>
+          <div class="row-item">
+            <div>
+              <p style="font-size: 13px; font-weight: 500; margin: 0;">Bengkel Pengurusan Kes Lanjutan</p>
+              <p style="font-size: 11px; color: var(--color-text-secondary); margin: 2px 0 0;">ISM KL · 15 Jan 2026</p>
+            </div>
+            <div style="text-align: right;"><p style="font-size: 13px; font-weight: 500; margin: 0;">8 jam</p><span class="badge badge-green">Diiktiraf</span></div>
+          </div>
+          <div class="row-item">
+            <div>
+              <p style="font-size: 13px; font-weight: 500; margin: 0;">Seminar Kesihatan Mental & Kerja Sosial</p>
+              <p style="font-size: 11px; color: var(--color-text-secondary); margin: 2px 0 0;">UiTM Shah Alam · 8 Mac 2026</p>
+            </div>
+            <div style="text-align: right;"><p style="font-size: 13px; font-weight: 500; margin: 0;">10 jam</p><span class="badge badge-green">Diiktiraf</span></div>
+          </div>
+          <div class="row-item">
+            <div>
+              <p style="font-size: 13px; font-weight: 500; margin: 0;">Kursus Perlindungan Kanak-kanak</p>
+              <p style="font-size: 11px; color: var(--color-text-secondary); margin: 2px 0 0;">JKM HQ · 22 Apr 2026</p>
+            </div>
+            <div style="text-align: right;"><p style="font-size: 13px; font-weight: 500; margin: 0;">10 jam</p><span class="badge badge-green">Diiktiraf</span></div>
+          </div>
+          <div class="row-item" style="border-bottom: none; opacity: 0.6;">
+            <div>
+              <p style="font-size: 13px; font-weight: 500; margin: 0;">Kursus Etika Kerja Sosial</p>
+              <p style="font-size: 11px; color: var(--color-text-secondary); margin: 2px 0 0;">ISM · Julai 2026 (akan datang)</p>
+            </div>
+            <div style="text-align: right;"><p style="font-size: 13px; font-weight: 500; margin: 0;">12 jam</p><span class="badge badge-amber">Disyorkan</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="screen-ai" class="screen">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+          <p style="font-size: 15px; font-weight: 500; margin: 0;">AI Assistant — ANDAi</p>
+          <div style="display: flex; gap: 6px;">
+            <span class="badge badge-green">LLM Aktif</span>
+            <span class="badge badge-blue">On-Premise</span>
+          </div>
+        </div>
+        <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 8px 12px; margin-bottom: 12px; font-size: 12px; color: var(--color-text-secondary); display: flex; gap: 8px; flex-wrap: wrap;">
+          <span>Sumber:</span>
+          <span class="badge badge-blue">Pangkalan data</span>
+          <span class="badge badge-blue">Dokumen dasar</span>
+          <span class="badge badge-blue">FAQ</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; min-height: 280px; padding: 4px;">
+          <div class="chat-bubble chat-user">Berapa ramai pekerja sosial di Sabah yang belum lengkap CPD tahun ini?</div>
+          <div class="chat-bubble chat-ai">
+            <p style="margin: 0 0 6px; font-weight: 500;">Dapatan daripada pangkalan data:</p>
+            <p style="margin: 0 0 6px;">Terdapat <strong>847 pekerja sosial</strong> berdaftar di Sabah. Daripada jumlah tersebut, <strong>312 orang (37%)</strong> belum melengkapkan keperluan CPD minimum 40 jam bagi tahun 2025/2026.</p>
+            <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 8px 10px; margin-top: 8px; font-size: 12px;">
+              <p style="margin: 0; color: var(--color-text-secondary);">Sumber: Pangkalan Data Pekerja Sosial · dikemaskini 2 Mei 2026</p>
+            </div>
+          </div>
+          <div class="chat-bubble chat-user">Apakah domain kompetensi yang paling lemah di kalangan mereka?</div>
+          <div class="chat-bubble chat-ai">
+            <p style="margin: 0 0 6px;">Berdasarkan data penilaian 360° terkini di Sabah, tiga domain kompetensi paling lemah adalah:</p>
+            <p style="margin: 0; font-size: 12px; line-height: 1.8;">1. Penyelidikan & amalan berasaskan bukti — purata 44%<br>2. Etika & undang-undang sosial — purata 51%<br>3. Kerja antara agensi — purata 58%</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 12px;">
+          <input type="text" placeholder="Tanya sesuatu tentang pekerja sosial Malaysia..." style="flex: 1; font-size: 13px;" />
+          <button onclick="sendPrompt('Apakah soalan lain yang boleh ditanya kepada AI Assistant sistem pekerja sosial ini?')" style="font-size: 13px; padding: 0 16px; white-space: nowrap;">Hantar ↗</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const map = {dashboard:0, profil:1, kompetensi:2, cpd:3, ai:4};
+  document.querySelectorAll('.nav-btn')[map[id]].classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach((s,i) => {
+    s.classList.toggle('active', i === map[id]);
+  });
+}
+</script>
